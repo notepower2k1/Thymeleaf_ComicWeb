@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      	layout:decorate="~{layouts/admin-layout}">
+<div layout:fragment="content">
+<!-- Page Heading -->
+	<h1 class="h3 mb-2 text-gray-800">Cập nhật</h1>
+	<div class="card shadow mb-4">
+		<div class="card-body">
+		<form id="uploadFiles" th:action="@{/admin/truyen/save-truyen}" th:object="${truyen}" method="POST" enctype="multipart/form-data">
+		 		
+		 		<input type="hidden" th:field="*{truyen_id}"/>
+		 		
+		 		<label>Mã truyện<sup>*</sup></label>
+		 		<input type="text" th:field = "*{truyen_ma}" required
+		 		class="form-control mb-4 col-6" readonly>
+		 		
+		 		<label>Tên truyện<sup>*</sup></label>
+		 		<input type="text" th:field = "*{truyen_ten}" required
+		 		class="form-control mb-4 col-6">
+		 		
+		 		<label>Thể loại<sup>*</sup></label>
+		 		<select th:field = "*{loai}" required class="form-control mb-4 col-6">
+		 			<option th:each="item:${listTheLoai}" th:value="${item.theloai_id}" th:text="${item.theloai_ten}"></option>
+		 		</select>
+		 		
+		 		<label>Tác giả<sup>*</sup></label>
+		 		<input type="text" th:field = "*{truyen_tacgia}" required
+		 		class="form-control mb-4 col-6">
+		 		
+		 		<label>Ngày đăng</label>
+		 		<input type="text" th:field = "*{truyen_ngaydang}" 
+		 		class="form-control mb-4 col-6">
+		 	
+		 		<label>Ảnh đại diện<sup>*</sup></label>
+		 		<input type="file" name="file"
+		 		class="form-control mb-4 col-6">
+		 			
+		 		<label>Tình trạng<sup>*</sup></label>
+				 		<div class="form-control mb-4 col-6">
+				 			<div class="custom-control custom-radio custom-control-inline">
+				 				<input type="radio" id="option1" class="custom-control-input" name="option1" 
+				 				value="1" th:field="*{truyen_tinhtrang}">
+	                			<label class="custom-control-label" for="option1">Đã hoàn thành</label>
+				 			</div>
+						    <div class="custom-control custom-radio custom-control-inline">
+						    	<input type="radio" id="option2" class="custom-control-input" name="option2" 
+							    value="0" th:field="*{truyen_tinhtrang}">
+					            <label class="custom-control-label" for="option2">Chưa hoàn thành</label>
+						    </div>
+				 		</div>
+				 	 		
+		 		<label>Mô tả</label>
+		 		<textarea cols="50" rows="20" th:field="*{truyen_mota}" class="form-control mb-4 col-12"></textarea>
+		 			
+		 			
+		 		 		
+		 		<input type="hidden" th:name="img" th:id ="img" th:value="*{truyen_anh}"/>
+		 		
+		 
+	
+				<input type="hidden" th:field = "*{userID.id_taikhoan}" 
+		 		class="form-control mb-4 col-6">
+		 	
+		 		<button type="submit" class="btn btn-info">Cập nhật</button>
+		 	</form>
+			</div>
+	</div>
+	<div class="form-action">
+		<a th:href="@{/admin/truyen}">Quay lại</a>
+	</div>
+</div>
+</html>

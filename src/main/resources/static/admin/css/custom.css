@@ -1,0 +1,48 @@
+@charset "ISO-8859-1";
+
+td:nth-child(1) {
+        font-weight: bold;
+        height: 40px;
+        width: 200px;
+    }
+
+    td:nth-child(2) {
+        font-weight: 300;
+        max-width: 100px;
+    }
+
+    .form-label {
+        cursor: default;
+    }
+    
+    img {
+    	border-radius: 25px !important;
+        max-height: 400px;
+    }
+    
+.wrap-text {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer;
+}
+
+.white-space-normal {
+	white-space: normal;
+}
+
+.form-action a {
+	display: block;
+        color: #BE123C;
+        margin-left: 22px;
+    text-decoration: none;
+}
+
+.action-area {
+	display: flex;justify-content: space-evenly;
+}
+
+sup {
+	color: red;
+	font-weight: 500;
+}

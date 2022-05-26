@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user-layout}">
+ 
+<div layout:fragment="content">
+	<div class="page-style-a">
+        <div class="container">
+            <div class="page-intro">
+                <h2>Account</h2>
+                <ul class="bread-crumb">
+                    <li class="has-separator">
+                        <i class="ion ion-md-home"></i>
+                        <a href="home.html">Home</a>
+                    </li>
+                    <li class="is-marked">
+                        <a th:href="@{/account}">Account</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+     <div class="page-account u-s-p-t-80">
+        <div class="container">
+                                            <h3 class="account-h3 u-s-m-b-20 mb-2">Thông tin người dùng</h3>
+                                <hr>
+        
+            <div class="row justify-content-center">
+            
+                <div class="col-lg-6">
+                        <table>
+				            <tr class="">
+				                <td class="form-label">Họ và tên</td>
+				                <td class="form-label" th:if="${user.hoten != ''}" th:text="${user.hoten}"></td>
+				                <td class="form-label" th:unless="${user.hoten != ''}"><i>Chưa nhập thông tin</i></td>
+				            </tr>
+				            <tr class="u-s-m-b-20">
+				                <td class="form-label">Số điện thoại</td>
+				                <td class="form-label" th:if="${user.dien_thoai != ''}" th:text="${user.dien_thoai}"></td>
+				                <td class="form-label" th:unless="${user.dien_thoai != ''}"><i>Chưa nhập thông tin</i></td>
+				            </tr>
+				            <tr class="u-s-m-b-20">
+				                <td class="form-label">Email</td>
+				                <td class="form-label" th:text="${user.email}"></td>
+				            </tr>
+				            <tr class="u-s-m-b-20">
+				                <td class="form-label">Địa chỉ</td>
+				                <td class="form-label" th:if="${user.dia_chi != ''}" th:text="${user.dia_chi}"></td>
+				                <td class="form-label" th:unless="${user.dia_chi != ''}"><i>Chưa nhập thông tin</i></td>
+				            </tr>
+				            <tr class="u-s-m-b-20">
+				                <td class="form-label">Tài khoản</td>
+				                <td class="form-label" th:text="${user.taikhoan}"></td>
+				            </tr>
+				    	</table>
+				    
+                </div>
+                <div class="col-lg-4">
+	   				<img class="img-fluid img-thumbnail" th:if="${user.hinhanh!=''}" th:src="@{/admin/img/} + ${user.hinhanh}" width=200 />	   	
+	   				<img class="img-fluid img-thumbnail" th:unless="${user.hinhanh!=''}" th:src="@{/user/images/blog/download.png}" />	   	   							
+                </div>
+                	
+            </div>
+                                            <hr>
+            <div class="d-flex justify-content-center p-2">
+				    		<a th:href="@{/account/update-info}" class="btn btn-primary mr-3">
+					    		<i class="fas fa-pen"></i> Cập nhật thông tin
+					   		</a>
+					    	<a th:href="@{/account/update-account}" class="btn btn-primary">
+					    		<i class="fas fa-unlock"></i> Đổi mật khẩu
+					    	</a>
+				    	</div>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      	layout:decorate="~{layouts/admin-layout}">   	
+<div layout:fragment="content">
+	<h1 class="h3 mb-2 text-gray-800">Thêm người dùng</h1>
+	<div class="card shadow mb-4">
+		<div class="card-body">
+			<form id="uploadFiles" th:action="@{/admin/nguoidung/add-nguoidung}" th:object="${nguoidung}" method="POST" enctype="multipart/form-data">
+		 		
+		 		
+		 		<label>Tài khoản<sup>*</sup></label>
+		 		<input type="text" name="accountName" id="accountName" required
+		 		placeholder="Nhập tài khoản" class="form-control mb-4 col-6">
+		 		
+		 		<label>Mật khẩu<sup>*</sup></label>
+		 		<input type="password" name="password" id="password" required
+		 		placeholder="Nhập tài khoản" class="form-control mb-4 col-6">
+		 		
+		 		<label>Email<sup>*</sup></label>
+		 		<input type="text" th:field = "*{email}" required
+		 		class="form-control mb-4 col-6">
+		 		
+		 		<label>Họ và tên<sup>*</sup></label>
+		 		<input type="text" th:field = "*{hoten}" required
+		 		class="form-control mb-4 col-6">
+		 		
+		 		<label>Điện thoại<sup>*</sup></label>
+		 		<input type="text" th:field = "*{dien_thoai}" required
+		 		class="form-control mb-4 col-6">
+		 		
+		 		
+		 	
+		 		
+		 		<label>Địa chỉ<sup>*</sup></label>
+		 		<input type="text" th:field = "*{dia_chi}" required
+		 		class="form-control mb-4 col-6">
+		 		
+		 		<label>Ảnh đại diện<sup>*</sup></label>
+		 		<input type="file" name="file" required
+		 		class="form-control mb-4 col-6">
+		 		
+		 		<input type="hidden" th:field = "*{role}" required
+		 		class="form-control mb-4 col-6">
+		 	
+	 	
+		 		
+		 		<button type="submit" class="btn btn-info">Thêm mới</button>
+		 	</form>
+   		</div>
+	</div>
+	<div class="form-action">
+		<a th:href="@{/admin/nguoidung/}">Quay lại</a>
+	</div>
+</div>
+</html>

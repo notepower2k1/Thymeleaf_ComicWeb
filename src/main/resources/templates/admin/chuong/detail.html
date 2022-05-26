@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      	layout:decorate="~{layouts/admin-layout}">  
+<div layout:fragment="content">
+	<h1 class="h3 mb-2 text-gray-800">Chi tiết</h1>
+	<div class="card shadow mb-4">
+		<div class="card-body">
+			<div class="mx-3 row">
+				<table class="col-md-12 col-12">
+		            <tr>
+		                <td class="form-label">Chương số</td>
+		                <td class="form-label" th:text="${chuong.chuong_so}"></td>
+		            </tr>
+		            <tr>
+		                <td class="form-label">Tên chương</td>
+		                <td class="form-label" th:text="${chuong.chuong_ten!=''}?${chuong.chuong_ten}:'Không có tên'"></td>
+		            </tr>	          
+		            <tr>
+		                <td class="form-label"></td>
+		                <td class="form-label">
+		                <h1>Nội dung</h1>
+						<div th:text="${chuong.chuong_noidung}" id="divhtmlContent"></div>
+		                </td>
+		            </tr>	        
+		        </table>	       
+			</div>
+		</div>
+	</div>
+	<div class="form-action">
+		<a th:href="@{/admin/chuong/{id_truyen}(id_truyen = ${chuong.truyen.truyen_id})}">Quay lại</a>
+	</div>
+</div>
+</html>

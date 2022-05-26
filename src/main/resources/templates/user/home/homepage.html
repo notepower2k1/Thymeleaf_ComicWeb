@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user-layout}">
+
+
+     
+<section layout:fragment="content">
+
+    
+   <div class="container">
+	<div class="row">
+	  <div class="col-lg-3 col-md-3 col-sm-12">
+                    <!-- Fetch-Categories-from-Root-Category  -->
+                    <div class="fetch-categories">
+                        <h3 class="title-name">Thể loại</h3>
+                        <!-- Level-2 -->
+                       
+                        <!-- Level-2 /- -->
+                        <!-- Level-3 -->
+                        <ul>
+                            <li th:each="item:${listTheLoai}">
+                                <a th:href="@{/the-loai/{idloai}(idloai = ${item.theloai_id})}" th:text="${item.theloai_ten}">
+                                
+                                </a>
+                            </li>              
+                        </ul>
+                   
+                    </div>
+                    <!-- Fetch-Categories-from-Root-Category  /- -->
+                </div>
+	
+   					<div class="col-lg-9 col-md-9 col-sm-12">
+                 
+                    <div class="row product-container grid-style">
+                        <div class="product-item col-lg-4 col-md-6 col-sm-6" th:each="item:${truyen}">
+                            <div class="item">
+                                <div class="image-container">
+                                    <a class="item-img-wrapper-link" th:href="@{/home/truyen/{id_truyen}(id_truyen = ${item.truyen_id})}">
+                                        <img class="img-fluid img-thumbnail" th:src="@{/admin/img/} + ${item.truyen_anh}" alt="Product" style="width:400px;height:400px;">
+                                    </a>                                
+                                </div>
+                                <div class="item-content">
+                                    <div class="what-product-is">
+                                        <ul class="bread-crumb">
+                                            <li>
+                                                <a th:href="@{/the-loai/{idloai}(idloai = ${item.loai.theloai_id})}" th:text="${item.loai.theloai_ten}"></a>
+                                            </li>
+                                           
+                                        </ul>
+                                        <h6 class="item-title">
+                                            <a th:href="@{/home/truyen/{id_truyen}(id_truyen = ${item.truyen_id})}" th:text="${item.truyen_ten}"></a>
+                                        </h6>                                                                        
+                                    </div>   
+                                   		<h6>Ngày đăng: <span th:text="${#strings.substringBefore(item.truyen_ngaydang,' ')}"></span></h6>
+                                   		<h6>Số chương: <span th:text="${#lists.size(item.dsChuong)}"></span></h6>   
+                                   		 <div th:switch="${item.truyen_tinhtrang}" >
+				                	<span th:case=0 class="text-warning font-weight-bold">Chưa hoàn thành</span>
+				                	<span th:case=1 class="text-info font-weight-bold">Đã hoàn thành</span>
+				                            </div>    
+                                </div>                             
+                            </div>
+                        </div>
+                     </div>
+                    <!-- Row-of-Product-Container /- -->
+                </div>
+	</div>
+	</div>
+	
+</section>
+
+<script>
+
+</script>
+</html>

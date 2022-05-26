@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      	layout:decorate="~{layouts/admin-layout}">  
+<div layout:fragment="content">
+	<h1 class="h3 mb-2 text-gray-800">Chi tiết</h1>
+	<div class="card shadow mb-4">
+	
+		<div class="row">
+		<div class="card-body col-md-6 col-12">
+		
+				<table width="100%">
+		            <tr>
+		                <td class="form-label">Mã truyện</td>
+		                <td class="form-label" th:text="${truyen.truyen_ma}"></td>
+		            </tr>
+		            <tr>
+		                <td class="form-label">Tên truyện</td>
+		                <td class="form-label" th:text="${truyen.truyen_ten}"></td>
+		            </tr>	          
+		            <tr>
+		                <td class="form-label">Thể loại</td>
+		                <td class="form-label" th:text="${truyen.loai.theloai_ten}"></td>
+		            </tr>
+		            <tr>
+		                <td class="form-label">Tác giả</td>
+		                <td class="form-label" th:text="${truyen.truyen_tacgia}"></td>
+		            </tr>
+		            <tr>
+		                <td class="form-label" style="display: flex;padding-top: 12px;">Mô tả</td>
+		                <td class="form-label">
+		                	<p style="white-space: break-spaces;" th:text="${truyen.truyen_mota}"></p>
+		                </td>
+		            </tr>
+		            <tr>
+		                <td class="form-label">Ngày đăng</td>
+		                <td class="form-label" th:text="${truyen.truyen_ngaydang}"></td>
+		            </tr>          	            
+		            
+		            
+		        </table>
+		     
+	   		
+			
+			   
+		</div>
+			<div class="col-md-6 col-12 d-flex justify-content-center align-items-center">
+	   				<img class="img-fluid img-thumbnail container_img" th:src="@{/admin/img/} + ${truyen.truyen_anh}"/>	   				
+	   			</div>
+	   			
+	   	</div>
+	</div>
+	<div class="form-action">
+		<a th:href="@{/admin/truyen}">Quay lại</a>
+	</div>
+</div>
+</html>

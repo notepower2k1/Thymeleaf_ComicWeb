@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      	layout:decorate="~{layouts/admin-layout}">  
+<div layout:fragment="content">
+	<h1 class="h3 mb-2 text-gray-800">Chi tiáº¿t</h1>
+	<div class="card shadow mb-4">
+		<div class="card-body">
+			<div class="mx-3 row">
+				<table class="col-md-6 col-12">
+		            <tr>
+		                <td class="form-label">Tài khoản</td>
+		                <td class="form-label" th:text="${nguoidung.taikhoan}"></td>
+		            </tr>
+		            <tr>
+		                <td class="form-label">Email</td>
+		                <td class="form-label" th:text="${nguoidung.email}"></td>
+		            </tr>
+		              <tr>
+		                <td class="form-label">Điện thoại</td>
+		                <td class="form-label" th:text="${nguoidung.dien_thoai}"></td>
+		            </tr>	
+		              <tr>
+		                <td class="form-label">Địa chỉ</td>
+		                <td class="form-label" th:text="${nguoidung.dia_chi}"></td>
+		            </tr>	
+		              <tr>
+		                <td class="form-label">Vai trò</td>
+		                <td class="form-label" th:text="${nguoidung.role.tenVT}"></td>
+		            </tr>		          	                
+		        </table>	
+		           <div class="col-md-6 col-12">
+	   				<img class="img-fluid img-thumbnail" th:src="@{/admin/img/} + ${nguoidung.hinhanh}" />	   				
+	   			</div>       
+			</div>
+		</div>
+	</div>
+	<div class="form-action">
+		<a th:href="@{/admin/nguoidung/}">Quay lại</a>
+	</div>
+</div>
+</html>

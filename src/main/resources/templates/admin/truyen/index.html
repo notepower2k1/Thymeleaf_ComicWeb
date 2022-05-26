@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin-layout}">
+<div layout:fragment="content">
+<!-- Page Heading -->
+	<h1 class="h3 mb-2 text-gray-800 d-flex justify-content-between">Danh sách truyện</h1>
+	<a th:href="@{/admin/truyen/them-moi}"
+							    class="btn btn-primary">Thêm truyện</a></th> 	
+	<div class="card shadow mt-4 mb-4">
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped truyentable" id="dataTable" width="100%" cellspacing="0">
+		        	<thead>
+		            	<tr>
+			     			<th>Tên truyện</th>
+				     		<th>Thể loại</th>
+			     			<th>Tác giả</th>
+			     			<th>Ngày đăng</th>
+			     			<th>Số chương</th>
+		     				<th>Tác vụ</th>
+		     				<th>Danh sách chương</th>
+		     				<th>Tình trạng</th>	     				
+		            	</tr>
+		            </thead>
+		            <tfoot>
+		               	<tr>
+			     			<th>Tên truyện</th>
+				     		<th>Thể loại</th>
+			     			<th>Tác giả</th>
+			     			<th>Ngày đăng</th>
+			     			<th>Số chương</th>				     				     			
+		     				<th>Tác vụ</th>
+		     				<th>Danh sách chương</th>
+		     				<th>Tình trạng</th>
+		            	</tr>
+		            </tfoot>
+		            <tbody>
+		                	<tr th:each="item:${truyenList}">
+						    <td th:text="${item.truyen_ten}"></td>
+						    <td th:text="${item.loai.theloai_ten}"></td>
+						    <td th:text="${item.truyen_tacgia}"></td>
+						    <td th:text="${item.truyen_ngaydang}"></td>
+						    <td th:text="${#lists.size(item.dsChuong)}"></td>
+				     		<td class="action-area">
+				     			<a th:href="@{/admin/truyen/chi-tiet/{id_truyen}(id_truyen=${item.truyen_id})}" 
+							    class="btn btn-primary"><i class="fas fa-fw fa-info-circle"></i></a>
+							    <a th:href="@{/admin/truyen/cap-nhat/{id_truyen}(id_truyen=${item.truyen_id})}" 
+							    class="btn btn-primary"><i class="fas fa-fw fa-edit"></i></a>
+								<a class="btn btn-primary deletebtn" th:data-id="${item.truyen_id}" 
+								th:data-type="truyen"><i class="fas fa-fw fa-trash"></i></a>						
+							</td>
+							<td>
+							<a th:href="@{/admin/chuong/{id_truyen}(id_truyen=${item.truyen_id})}" 
+							    class="btn btn-primary"><i class="fas fa-solid fa-list"></i></a>
+							</td>
+							  <td class="form-label" th:switch="${item.truyen_tinhtrang}" >
+				                	<span th:case=0 class="text-warning font-weight-bold">Chưa hoàn thành</span>
+				                	<span th:case=1 class="text-info font-weight-bold">Đã hoàn thành</span>
+				                </td>
+						</tr>
+		            </tbody>
+				</table>
+	        </div>
+   		</div>
+	</div>
+</div>
+</html>

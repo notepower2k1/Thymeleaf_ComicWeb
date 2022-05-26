@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user-layout}">
+
+      
+      
+ <section layout:fragment="content">
+     <div class="page-shop u-s-p-t-80">
+        <div class="container">
+            <!-- Result-Wrapper -->
+            <div class="result-wrapper u-s-p-y-80">
+                
+                <h4>Xin lỗi , thể loại truyện hiện tại chưa có !!!</h4>
+                
+                <h1>Trống</h1>
+                  <form class="form-searchbox" th:action="@{/search-page}">
+                            <label class="sr-only" for="search-landscape">Tìm kiếm</label>
+                            <input id="search-landscape" type="text" class="text-field" placeholder="Nhập tên truyện muốn tìm kiếm..."  name="tenNT" th:value="${tenNT}">                          
+                            <button id="btn-search" type="submit" class="button btn-primary fas fa-search"></button>
+                </form>
+            </div>
+            <!-- Result-Wrapper /- -->
+        </div>
+    </div>
+</section>
+    
+<script>
+
+</script>
+</html>

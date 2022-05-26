@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user-layout}">
+
+
+     
+<section layout:fragment="content">
+ <div class="container">
+	<div class="row">
+	  <div class="col-lg-3 col-md-3 col-sm-12">
+                    <!-- Fetch-Categories-from-Root-Category  -->
+                    <div class="fetch-categories">
+                        <h3 class="title-name">Thể loại</h3>
+                        <!-- Level-2 -->
+                       
+                        <!-- Level-2 /- -->
+                        <!-- Level-3 -->
+                        <ul>
+                            <li th:each="item:${listTheLoai}">
+                                <a th:href="@{/the-loai/{idloai}(idloai = ${item.theloai_id})}" th:text="${item.theloai_ten}">
+                                </a>
+                            </li>              
+                        </ul>
+                   
+                    </div>
+                    <!-- Fetch-Categories-from-Root-Category  /- -->
+                </div>
+	
+   					<div class="col-lg-9 col-md-9 col-sm-12">
+                 
+                    <div class="row product-container list-style">
+                        <div class="product-item col-lg-12 col-md-12 col-sm-12" th:each="item:${truyen}">
+                            <div class="item">
+                                <div class="image-container">
+                                    <a class="item-img-wrapper-link" th:href="@{/home/truyen/{id_truyen}(id_truyen = ${item.truyen_id})}">
+                                        <img class="img-fluid" th:src="@{/admin/img/} + ${item.truyen_anh}" alt="Product" style="width:600px;height:400px;">
+                                    </a>                                
+                                </div>
+                                <div class="item-content">
+                                    <div class="what-product-is">
+                                        <ul class="bread-crumb">
+                                            <li>
+                                                <a th:href="@{/the-loai/{idloai}(idloai = ${item.loai.theloai_id})}" th:text="${item.loai.theloai_ten}"></a>
+                                            </li>
+                                           
+                                            
+                                        </ul>
+                                        <h3 class="item-title">
+                                            <a th:href="@{/home/truyen/{id_truyen}(id_truyen = ${item.truyen_id})}" th:text="${item.truyen_ten}"></a>
+                                        </h3> 
+                                        </br>   
+                                        
+                                        	<div>
+                                       			<a href="#" th:inline="text">Tác giả: [[${item.truyen_tacgia}]]</a>                                      
+                                        	
+                                        	</div>
+                                         
+                                        
+                                           <div class="item-description wrap-text" th:inline="text">
+											  
+                                           [[${item.truyen_mota}]]
+                                            
+                                        </div>                                                                   
+                                    </div>                                 
+                                </div>                             
+                            </div>
+                        </div>
+                     </div>
+                    <!-- Row-of-Product-Container /- -->
+                </div>
+	</div>
+	</div>
+</section>
+<th:block layout:fragment="script">
+
+<script>
+	const wrapText = document.querySelector('.wrap-text');
+
+	if (wrapText) {
+		wrapText.addEventListener('click', function (event) {
+ 			this.classList.toggle('white-space-normal');
+ 	});
+	}
+</script>
+</th:block>
+</html>

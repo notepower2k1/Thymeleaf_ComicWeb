@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      	layout:decorate="~{layouts/admin-layout}">
+<div layout:fragment="content">
+<!-- Page Heading -->
+	<h1 class="h3 mb-2 text-gray-800">Cập nhật</h1>
+	<div class="card shadow mb-4">
+		<div class="card-body row">
+			<div class="col-12">
+		<form id="uploadFiles" th:action="@{/admin/chuong/save-chuong}" th:object="${chuong}" method="POST" enctype="multipart/form-data">
+		 		
+		 		<input type="hidden" th:field="*{chuong_id}"/>
+		 		<input type="hidden" th:field="*{truyen.truyen_id}"/>
+		 		
+		 		<label>Chương số<sup>*</sup></label>
+		 		<input type="text" th:field = "*{chuong_so}" required
+		 		class="form-control mb-4 col-6"y>
+		 		
+		 		<label>Tên chương<sup>*</sup></label>
+		 		<input type="text" th:field = "*{chuong_ten}" required
+		 		class="form-control mb-4 col-6">
+		 					 		
+		 		<label>Nội dung</label>
+		 		<textarea id="mytextarea" th:field="*{chuong_noidung}" class="form-control mb-4"></textarea>
+		 	
+		 		
+		 		<button type="submit" class="btn btn-info">Cập nhật</button>
+		 	</form>
+			</div>
+   		</div>
+	</div>
+	<div class="form-action">
+		<a th:href="@{/admin/chuong/{id_truyen}(id_truyen = ${chuong.truyen.truyen_id})}">Quay lại</a>
+	</div>
+</div>
+</html>

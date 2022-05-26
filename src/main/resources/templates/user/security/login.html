@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user-layout}">
+<div layout:fragment="content">
+	<div class="page-style-a">
+        <div class="container">
+            <div class="page-intro">
+                <h2>Account</h2>
+                <ul class="bread-crumb">
+                    <li class="has-separator">
+                        <i class="ion ion-md-home"></i>
+                        <a href="home.html">Home</a>
+                    </li>
+                    <li class="is-marked">
+                        <a href="account.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+        <form>
+                        <div class="text-center justify-content-center">
+                            <div th:if="${alertType!=null}" th:class="${alertType=='success'?
+                            'form-control alert alert-success small': 'form-control alert alert-danger small'}" 
+                            id="AlertBox" th:text="${alertText}" style="height:inherit" ></div>
+                        </div>
+                    </form>
+     <div class="page-account u-s-p-t-80">    
+        <div class="container">
+        	<div class="row justify-content-center">
+               <div class="col-lg-6">
+                    <div class="login-wrapper">
+                        <h2 class="account-h2 u-s-m-b-20">Đăng nhập</h2>
+                        <form th:action="@{/login}" class="user" method="POST">
+                            <div class="u-s-m-b-30">
+                                <label for="user-name-email">Tài khoản
+                                    <span class="astk">*</span>
+                                </label>
+                                <input type="text" id="user-name-email" class="text-field" 
+                                name="account" placeholder="Nhập tài khoản">
+                            </div>
+                            <div class="u-s-m-b-30">
+                               <label for="login-password">Mật khẩu
+                                    <span class="astk">*</span>
+                                </label>
+                                <input type="password" id="login-password" class="text-field" 
+                                name="password" placeholder="Nhập mật khẩu">
+                            </div>
+                            <div class="m-b-45">
+                                <button type="submit" class="button button-outline-secondary w-100">Đăng nhập</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                 <div class="col-lg-6">
+                    <div class="reg-wrapper">
+                        <h2 class="account-h2 u-s-m-b-20">Đăng ký</h2>
+                        <form th:action="@{/user-register}" method="POST">
+                            <div class="u-s-m-b-30">
+                                <label for="username">Tài khoản
+                                    <span class="astk">*</span>
+                                </label>
+                                <input type="text" id="username" name="username" 
+                                class="text-field" placeholder="Nhập tài khoản" required>
+                            </div>
+                            <div class="u-s-m-b-30">
+                                <label for="email">Email
+                                    <span class="astk">*</span>
+                                </label>
+                                <input type="text" id="email" name="email" 
+                                class="text-field" placeholder="Nhập email" required>
+                            </div>
+                            <div class="u-s-m-b-30">
+                                <label for="password">Mật khẩu
+                                    <span class="astk">*</span>
+                                </label>
+                                <input type="password" id="password" name="password" 
+                                class="text-field" placeholder="Nhập mật khẩu" required>
+                            </div>
+                            
+                              <div class="u-s-m-b-30">
+                                <label for="password">Mật khẩu
+                                    <span class="astk">*</span>
+                                </label>
+                                <input type="password" id="repassword" name="repassword" 
+                                class="text-field" placeholder="Nhập lại mật khẩu" required>
+                            </div>
+                            <div class="u-s-m-b-45">
+                                <button type="submit" class="button button-primary w-100">Đăng ký</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+           
+            </div>
+        </div>
+    </div>
+</div>
+</html>

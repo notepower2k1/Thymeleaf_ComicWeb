@@ -1,0 +1,338 @@
+ <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user-layout}">
+
+      
+      
+ <section layout:fragment="content">
+ <div class="page-style-a">
+        <div class="container">
+            <div class="page-intro">
+                <h2>Post Name</h2>
+                <ul class="bread-crumb">
+                    <li class="has-separator">
+                        <i class="ion ion-md-home"></i>
+                        <a href="home.html">Home</a>
+                    </li>
+                    <li class="is-marked">
+                        <a href="blog-detail.html">Post Name</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Page Introduction Wrapper /- -->
+    <!-- Blog-Detail-Page -->
+    <div class="page-blog-detail u-s-p-t-80">
+        <div class="container">
+        	<h1 class="text-center font-weight-bold" th:text="${chuong.truyen.truyen_ten}"></h1>
+            <h2 class="blog-post-detail-heading text-center" th:inline="text">
+      		[[${chuong.chuong_so}]]<span th:if="${chuong.chuong_ten!=''}" th:inline="text">: [[${chuong.chuong_ten}]]</span>
+            
+            </h2>
+            <div class="blog-post-info u-s-m-b-13">
+                <span class="blog-post-preposition">Đăng bởi</span>
+                <a class="blog-post-author-name" href="#" th:text="${chuong.truyen.userID.taikhoan}"></a>
+                <span class="blog-post-info-separator">/</span>
+                <span class="blog-post-published-date">
+                 	<span th:text="${chuong.truyen.truyen_ngaydang}"></span>
+                </span>
+                
+                
+                       <div class="v-menu v-close u-s-p-t-20">
+                            <span class="v-title">
+                               
+                              Chọn chương
+                                <i class="fas fa-angle-down"></i>
+                            </span>
+                            <nav>
+                                <div class="v-wrapper">
+                                    <ul class="v-list animated fadeIn">
+                                        <li class="js-backdrop" th:each="item:${chuongList}">
+                                            <a th:href="@{/home/truyen/chuong/{id_chuong}(id_chuong = ${item.chuong_id})}" th:inline="text">
+			  								[[${item.chuong_so}]]<span th:if="${item.chuong_ten!=''}" th:inline="text">: [[${item.chuong_ten}]]</span>
+                                            </a>
+                                      </ul>
+                                </div>
+                            </nav>
+                        </div>
+            </div>
+            <div class="post-content border px-4 pt-3 bg-light">
+             	 <div class="container my-3">
+                <div class="row align-items-center">
+                 
+                <div class="previous-container col-5">
+                  <form th:action="@{/home/truyen/chuong/{id_chuong}(id_chuong = ${chuong.chuong_id})}" method="post">
+                
+                     <button th:if="${chuong.chuong_id == minChuong}" class="button btn-primary" type="submit" disabled>
+                        <i class="fas fa-angle-left u-s-m-r-9"></i> Previous
+                    </button>
+                     <button th:unless="${chuong.chuong_id == minChuong}" class="button btn-primary" type="submit">
+                        <i class="fas fa-angle-left u-s-m-r-9"></i> Previous
+                    </button>
+                   <input type="hidden" name="isNext" id="isNext" th:value="false"/>
+                        </form>
+                </div>
+                   
+           		<a th:href="@{/home/truyen/{id_truyen}(id_truyen = ${chuong.truyen.truyen_id})}" class="button btn-primary col-2 text-white text-center">
+           			<i class="fas fa-home"> Home</i>
+           		</a>
+                  
+                <div class="next-container col-5">
+                    <form th:action="@{/home/truyen/chuong/{id_chuong}(id_chuong = ${chuong.chuong_id})}" method="post">
+                   <button th:if="${chuong.chuong_id == maxChuong}" class="button btn-primary" type="submit" disabled> Next
+                        <i class="fas fa-angle-right u-s-m-l-9"></i>
+                    </button>
+                     <button th:unless="${chuong.chuong_id == maxChuong}" class="button btn-primary" type="submit"> Next
+                        <i class="fas fa-angle-right u-s-m-l-9"></i>
+                    </button>
+                    <input type="hidden" name="isNext" id="isNext" th:value="true"/>
+                </form>
+                </div>
+            
+                </div>
+            </div>
+            <hr>
+			<div th:text="${chuong.chuong_noidung}" id="divhtmlContent"></div>   
+			
+			 <div class="container my-3">
+                <div class="row align-items-center">
+                 
+                <div class="previous-container col-5">
+                  <form th:action="@{/home/truyen/chuong/{id_chuong}(id_chuong = ${chuong.chuong_id})}" method="post">
+                
+                     <button th:if="${chuong.chuong_id == minChuong}" class="button btn-primary" type="submit" disabled>
+                        <i class="fas fa-angle-left u-s-m-r-9"></i> Previous
+                    </button>
+                     <button th:unless="${chuong.chuong_id == minChuong}" class="button btn-primary" type="submit">
+                        <i class="fas fa-angle-left u-s-m-r-9"></i> Previous
+                    </button>
+                   <input type="hidden" name="isNext" id="isNext" th:value="false"/>
+                        </form>
+                </div>
+                   
+				<a th:href="@{/home/truyen/{id_truyen}(id_truyen = ${chuong.truyen.truyen_id})}" class="button btn-primary col-2 text-white text-center">
+           			<i class="fas fa-home"> Home</i>
+           		</a>                  
+                <div class="next-container col-5">
+                    <form th:action="@{/home/truyen/chuong/{id_chuong}(id_chuong = ${chuong.chuong_id})}" method="post">
+                   <button th:if="${chuong.chuong_id == maxChuong}" class="button btn-primary" type="submit" disabled> Next
+                        <i class="fas fa-angle-right u-s-m-l-9"></i>
+                    </button>
+                     <button th:unless="${chuong.chuong_id == maxChuong}" class="button btn-primary" type="submit"> Next
+                        <i class="fas fa-angle-right u-s-m-l-9"></i>
+                    </button>
+                    <input type="hidden" name="isNext" id="isNext" th:value="true"/>
+                </form>
+                </div>
+            
+                </div>
+            </div>
+            
+            </div>
+        
+                    
+                 
+          	 		
+ 		
+ 		<section style="background-color: #eee;">
+  <div class="container my-5 py-5">
+  <h3>Bình luận</h3>
+    <div class="row d-flex">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header py-3 border-0" style="background-color: #f8f9fa;" th:if="${currentUser!=null}">
+        	<form th:action="@{/truyen/save-comment}" th:object="${binhluan}" method="POST">   
+            <input type="hidden" id="truyenID" name="truyenID" th:value="${chuong.truyen.truyen_id}"/>
+            <input type="hidden" id="isChuong" name="isChuong" th:value="1"/>
+           	<input type="hidden" id="chuong_id" name="chuong_id" th:value="${chuong.chuong_id}"/>
+          
+            <div class="d-flex flex-start w-100">
+            
+              <img class="rounded-circle shadow-1-strong me-3" th:if="${currentUser.hinhanh!=''}" th:src="@{/admin/img/} + ${currentUser.hinhanh}" alt="avatar" width="60"
+                height="60"/>	   	
+                
+	   			<img class="rounded-circle shadow-1-strong me-3" th:unless="${currentUser.hinhanh!=''}" th:src="@{/user/images/blog/download.png}" alt="avatar" width="60"
+                height="60"/>	 
+              
+              <div class="form-outline w-100 ml-2">
+               
+                <textarea class="form-control" id="binh_luan" name="binh_luan" rows="4" placeholder="Viết bình luận"
+                  style="background: #fff;"></textarea>
+                <label class="form-label" for="textAreaExample">Bình luận của bạn</label>
+              </div>
+            </div>
+            <div class="mt-2 pt-1" style="float:right;">
+              <button type="submit" class="btn btn-primary btn-sm">Bình luận</button>
+              <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
+            </div>
+            </form>
+          </div>
+          <div class="card-body" th:each="item:${binhluan}">
+            <div class="d-flex flex-start align-items-center">
+                      
+                <img class="rounded-circle shadow-1-strong me-3" th:if="${item.account.hinhanh!=''}" th:src="@{/admin/img/} + ${item.account.hinhanh}" alt="avatar" width="60"
+                height="60"/>	   	
+                
+	   			<img class="rounded-circle shadow-1-strong me-3" th:unless="${item.account.hinhanh!=''}" th:src="@{/user/images/blog/download.png}" alt="avatar" width="60"
+                height="60"/>	 
+                 
+              <div>
+                <h6 class="ml-2 fw-bold text-primary mb-1" th:text="${item.account.hoten!=''}?${item.account.hoten}:'Vô danh'"></h6>
+                <p class="ml-2 text-muted small mb-0" th:text="${item.thoi_gian}">
+                  
+                </p>
+              </div>
+            </div>
+
+            <p class="mt-3 mb-4 pb-2" th:text="${item.binh_luan}">
+             
+            </p>
+
+            <div class="small d-flex justify-content-start">
+             
+              <a class="d-flex align-items-center mr-3">
+                <i class="far fa-thumbs-up mr-1"></i>
+                <p class="mb-0">Thích</p>
+              </a>
+              
+              <a  class="d-flex align-items-center mr-3 replybtn">
+                <i class="far fa-comment-dots mr-1"></i>
+                <p class="mb-0"> Phản hồi</p>
+              </a>
+               <span th:if="${currentUser!=null}">          
+              <a th:if="${item.account.id_taikhoan == currentUser.id_taikhoan}" th:href="@{/truyen/{truyen_id}/binhluan/xoa-binhluan/{binhluan_id}(truyen_id = ${chuong.truyen.truyen_id} ,binhluan_id =${item.binhluan_id})}"
+               class="d-flex align-items-center me-3">
+                <i class="far fa-comment-dots mr-1"></i>
+                <p class="mb-0"> Xóa</p>
+              </a>
+              </span>
+            </div>
+            
+            <div class="py-3 border-0  w-100" style="background-color: #f8f9fa;" th:each="item1:${item.dsPhanHoi}">  	      
+            <div class="d-flex ml-5 flex-start">        
+            
+              <img class="rounded-circle shadow-1-strong me-3" th:if="${item1.account.hinhanh!=''}" th:src="@{/admin/img/} + ${item1.account.hinhanh}" alt="avatar" width="60"
+                height="60"/>	   	
+                
+	   			<img class="rounded-circle shadow-1-strong me-3" th:unless="${item1.account.hinhanh!=''}" th:src="@{/user/images/blog/download.png}" alt="avatar" width="60"
+                height="60"/>	 
+              
+              	
+                <h6 class="ml-2 fw-bold text-primary mb-1" th:text="${item1.account.hoten!=''}?${item1.account.hoten }:'Vô danh '"></h6>
+                
+                <p class="ml-2"> - </p>
+                <p class="ml-2 text-muted small mb-0" th:text="${item1.thoi_gian}">
+                  
+                </p>
+              
+              
+            </div>
+               
+               	<div class="ml-5 pb-2">
+               	<p  th:text="${item1.phan_hoi}"></p>
+               	
+           	<span class="small" th:if="${currentUser!=null}">          
+
+              <a th:if="${item1.account.id_taikhoan == currentUser.id_taikhoan}" th:href="@{/truyen/chuong/{chuong_id}/phanhoi/xoa-phanhoi/{phanhoi_id}(chuong_id = ${chuong.chuong_id} ,phanhoi_id =${item1.phanhoi_id})}"
+               class="d-flex align-items-center me-3">
+                <i class="far fa-comment-dots mr-1"></i>
+                <p class="mb-0"> Xóa</p>
+              </a>
+              </span>
+               	</div>
+            
+           
+         	 </div>
+          
+            <div class="py-3 border-0 replyForm" style="background-color: #f8f9fa;display:none" th:if="${currentUser!=null}">
+        	<form th:action="@{/truyen/save-reply}" th:object="${phanhoi}" method="POST">        
+            <div class="d-flex flex-start w-100">
+              <input type="hidden" id="truyenID" name="truyenID" th:value="${chuong.truyen.truyen_id}"/>
+               <input type="hidden" id="binhluanID" name="binhluanID" th:value="${item.binhluan_id}"/>
+             <input type="hidden" id="isChuong" name="isChuong" th:value="1"/>
+           	<input type="hidden" id="chuong_id" name="chuong_id" th:value="${chuong.chuong_id}"/>
+          
+              <img class="rounded-circle shadow-1-strong me-3" th:if="${currentUser.hinhanh!=''}" th:src="@{/admin/img/} + ${currentUser.hinhanh}" alt="avatar" width="60"
+                height="60"/>	   	
+                
+	   			<img class="rounded-circle shadow-1-strong me-3" th:unless="${currentUser.hinhanh!=''}" th:src="@{/user/images/blog/download.png}" alt="avatar" width="60"
+                height="60"/>	 
+              
+              <div class="form-outline w-100 ml-2">
+               
+                <textarea class="form-control" id="phan_hoi" name="phan_hoi" rows="4" placeholder="Thêm phản hồi"
+                  style="background: #fff;"></textarea>
+              </div>
+            </div>
+            <div class="mt-2 pt-1" style="float:right;">
+              <button type="submit" class="btn btn-primary btn-sm">Phản hồi</button>
+            </div>
+            </form>
+          </div>
+     
+          
+          </div>     
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+         
+         </div>
+    </div>
+     </section>
+    
+<th:block layout:fragment="script">
+<script>
+var value = document.getElementById('divhtmlContent').textContent;
+document.getElementById('divhtmlContent').innerHTML =
+  	marked.parse(value);
+  	
+  	
+  	
+
+	
+	var isReply = false;
+	
+	const buttons = document.querySelectorAll('.replybtn');
+
+	const replyforms = document.querySelectorAll('.replyForm');
+	
+		if (buttons) {
+	 		Array.from(buttons).forEach(function (item) {
+		 		item.addEventListener('click',function (event) {
+		 			
+		 			
+		 			var parent = item.parentNode;
+		 		    
+		 			
+		 			console.log(parent.parentNode)
+		 			parent.parentNode.querySelectorAll(".replyForm").forEach(function (i) {
+		 				
+		 				if(isReply == false)
+		 					{
+			 				i.style.display = "block";
+			 				isReply = true;
+		 					}
+		 				
+		 				else{
+		 					i.style.display = "none";
+			 				isReply = false;
+		 				}
+		 			});
+		 			
+		 			
+		 	    });
+		 	});
+	 	}
+		
+	
+	
+
+</script>
+
+
+</th:block>
+</html>
