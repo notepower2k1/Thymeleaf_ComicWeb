@@ -20,12 +20,9 @@ public interface TruyenService {
 	
 	List<Truyen> SearchTruyenName(String truyen_ten);
 	
-	Truyen SelectNewTruyen(int user_id);
 
 	int TotalTruyen(int user_id);
 
-	int TotalChuongOnThang(int user_id, int month);
 
-	int TotalBinhLuanOnThang(int user_id,int month);
-
+	List<Truyen> SearchTruyenNotPost(int user_id);
 }

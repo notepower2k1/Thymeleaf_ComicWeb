@@ -27,13 +27,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import thach.nv.project.entity.BaiDang;
 import thach.nv.project.entity.BinhLuan;
 import thach.nv.project.entity.Chuong;
 import thach.nv.project.entity.NguoiDung;
 import thach.nv.project.entity.PhanHoi;
 import thach.nv.project.entity.TheLoai;
 import thach.nv.project.entity.Truyen;
+import thach.nv.project.service.BaiDangService;
 import thach.nv.project.service.BinhLuanService;
 import thach.nv.project.service.ChuongService;
 import thach.nv.project.service.NguoiDungService;
@@ -58,6 +59,9 @@ public class TrangChuController {
 	private ChuongService chuongService;
 	
 	@Autowired
+	private BaiDangService baidangService;
+	
+	@Autowired
 	private RoleService roleService;
 	
 	@Autowired
@@ -71,18 +75,19 @@ public class TrangChuController {
 	
 	@GetMapping( value ={"/home","/"})
 	String homePageView(Model model) {
-	    model.addAttribute("truyen", this.truyenService.getAllTruyen());
+	    model.addAttribute("baidang", this.baidangService.getAllBaiDang());
 	    model.addAttribute("listTheLoai",theloaiService.getAllTheLoai());
 		return "user/home/homepage";
 	}
 	
 	
-	@GetMapping("/home/truyen/{id_truyen}")
-	public String truyenDetailPage(@PathVariable(value="id_truyen") int id_truyen, Model model) {
-		Truyen truyen = this.truyenService.getTruyenById(id_truyen);
-		List<Chuong> dsChuong = this.chuongService.getAllChuongByID(id_truyen);
+	@GetMapping("/home/baidang/{baidang_id}")
+	public String truyenDetailPage(@PathVariable(value="baidang_id") int baidang_id, Model model) {
+		BaiDang baidang = this.baidangService.getBaiDangById(baidang_id);
+		Truyen truyen = baidang.getTruyen();
+		List<Chuong> dsChuong = this.chuongService.getAllChuongByID(truyen.getTruyen_id());
 		
-		List<BinhLuan> dsBL = this.binhluanService.SelectAllBinhLuanOnTruyen(id_truyen);
+		List<BinhLuan> dsBL = this.binhluanService.SelectAllBinhLuanOnBaiDang(baidang_id);
 		
 		NguoiDung account = null;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -99,11 +104,11 @@ public class TrangChuController {
 		model.addAttribute("binhluan",dsBL);
 		return "user/home/chi-tiet";
 	}
-	@GetMapping("/home/truyen/chuong/{id_chuong}")
+	@GetMapping("/home/baidang/truyen/chuong/{id_chuong}")
 	public String chuongDetailPage(@PathVariable(value="id_chuong") int id_chuong, Model model) {
 		Chuong chuong = this.chuongService.getChuongById(id_chuong);
 		List<Chuong> dsChuong = this.chuongService.getAllChuongByID(chuong.getTruyen().getTruyen_id());
-		List<BinhLuan> dsBL = this.binhluanService.SelectAllBinhLuanOnTruyen(chuong.getTruyen().getTruyen_id());
+		List<BinhLuan> dsBL = this.binhluanService.SelectAllBinhLuanOnBaiDang(chuong.getTruyen().getBaidang().getBaidang_id());
 
 		NguoiDung account = null;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -123,7 +128,7 @@ public class TrangChuController {
 
 		return "user/home/chi-tiet-chuong";
 	}
-	@PostMapping("/home/truyen/chuong/{id_chuong}")
+	@PostMapping("/home/baidang/truyen/chuong/{id_chuong}")
 	public String nextDetailPage(@PathVariable(value="id_chuong") int id_chuong ,@RequestParam(value="isNext") boolean isNext) {	
 		Chuong temp = this.chuongService.getChuongById(id_chuong);
 		Chuong chuong = null;
@@ -134,7 +139,7 @@ public class TrangChuController {
 		else {
 			chuong = this.chuongService.previousChuong(id_chuong, temp.getTruyen().getTruyen_id());
 		}
-		return "redirect:/home/truyen/chuong/" + chuong.getChuong_id();
+		return "redirect:/home/baidang/truyen/chuong/" + chuong.getChuong_id();
 	}
 	@GetMapping("/account")
 	public String account(Model model) {
@@ -233,25 +238,25 @@ public class TrangChuController {
 	}
 	
 	
-	@PostMapping("/truyen/save-comment")
+	@PostMapping("/baidang/save-comment")
 	public String saveComment(@ModelAttribute("binhluan") BinhLuan binhluan , @RequestParam(value="binh_luan") String binh_luan , 
-			@RequestParam(value="truyenID") int truyenID, @Param("isChuong") boolean isChuong, @Param("chuong_id") int chuong_id,
+			@RequestParam(value="baidang_id") int baidang_id, @Param("isChuong") boolean isChuong, @Param("chuong_id") int chuong_id,
 			RedirectAttributes redirectAttrs){
 		
 		SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-
+        
+        BaiDang baidang = this.baidangService.getBaiDangById(baidang_id);
 		NguoiDung account = null;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
 		    String currentUserName = authentication.getName();
 		    account = nguoidungService.getByUsername(currentUserName);
 		}
-		Truyen truyen = this.truyenService.getTruyenById(truyenID);
 
 		binhluan.setBinh_luan(binh_luan);
-		binhluan.setTruyen(truyen);
+		binhluan.setBaidang(baidang);
 		binhluan.setAccount(account);
 		binhluan.setThoi_gian(sdf3.format(timestamp));
 		this.binhluanService.saveBinhLuan(binhluan);
@@ -260,28 +265,35 @@ public class TrangChuController {
 		
 		if (isChuong == true)
 		{
-			return "redirect:/home/truyen/chuong/" + chuong_id;
+			return "redirect:/home/baidang/truyen/chuong/" + chuong_id;
 		}
 		else
 		{
-			return "redirect:/home/truyen/" + truyenID;
+			return "redirect:/home/baidang/" + baidang_id;
 
 		}
 	}
 	
-	@GetMapping("/truyen/binhluan/xoa-binhluan/{binhluan_id}")
-	public String deleteBinhLuan(@PathVariable(value="binhluan_id") int binhluan_id, 
-			@PathVariable(value="truyen_id") int truyen_id) {
+	@GetMapping("/baidang/{baidang_id}/binhluan/xoa-binhluan/{binhluan_id}")
+	public String deleteBinhLuanOnBaiDang(@PathVariable(value="binhluan_id") int binhluan_id, 
+			@PathVariable(value="baidang_id") int baidang_id) {
 		this.binhluanService.removeBinhLuan(binhluan_id);
 		
-		return "redirect:/home/truyen/" + truyen_id;
+		return "redirect:/home/baidang/" + baidang_id;
 	}
 
+	@GetMapping("/baidang/{baidang_id}/phanhoi/xoa-phanhoi/{phanhoi_id}")
+	public String deletePhanHoiOnBaiDang(@PathVariable(value="phanhoi_id") int phanhoi_id, 
+			@PathVariable(value="baidang_id") int baidang_id) {
+		this.phanhoiService.removePhanHoi(phanhoi_id);
+		
+		return "redirect:/home/baidang/" + baidang_id;
+	}
 	
-	@PostMapping("/truyen/save-reply")
+	@PostMapping("/baidang/save-reply")
 	public String saveComment(@ModelAttribute("phanhoi") PhanHoi phanhoi , @RequestParam(value="phan_hoi") String phan_hoi ,
 			@RequestParam(value="binhluanID") int binhluanID,
-			@RequestParam(value="truyenID") int truyenID,
+			@RequestParam(value="baidang_id") int baidang_id,
 			@Param("isChuong") boolean isChuong, @Param("chuong_id") int chuong_id
 			){
 		
@@ -304,19 +316,26 @@ public class TrangChuController {
 		
 		if (isChuong == true)
 		{
-			return "redirect:/home/truyen/chuong/" + chuong_id;
+			return "redirect:/home/baidang/truyen/chuong/" + chuong_id;
 		}
 		else
 		{
-			return "redirect:/home/truyen/" + truyenID;
+			return "redirect:/home/baidang/" + baidang_id;
 		}
 	}
 	
-	@GetMapping("/truyen/chuong/{chuong_id}/phanhoi/xoa-phanhoi/{phanhoi_id}")
-	public String deletePhanHoi(@PathVariable(value="phanhoi_id") int phanhoi_id, 
+	@GetMapping("/baidang/truyen/chuong/{chuong_id}/binhluan/xoa-binhluan/{binhluan_id}")
+	public String deleteBinhLuanOnChuong(@PathVariable(value="binhluan_id") int binhluan_id, 
+			@PathVariable(value="chuong_id") int chuong_id) {
+		this.binhluanService.removeBinhLuan(binhluan_id);
+		
+		return "redirect:/home/baidang/truyen/chuong/" + chuong_id;
+	}
+	@GetMapping("/baidang/truyen/chuong/{chuong_id}/phanhoi/xoa-phanhoi/{phanhoi_id}")
+	public String deletePhanHoiOnChuong(@PathVariable(value="phanhoi_id") int phanhoi_id, 
 			@PathVariable(value="chuong_id") int chuong_id) {
 		this.phanhoiService.removePhanHoi(phanhoi_id);		
-		return "redirect:/home/truyen/chuong/" + chuong_id;
+		return "redirect:/home/baidang/truyen/chuong/" + chuong_id;
 	}
 	
 	

@@ -16,7 +16,7 @@ public interface ChuongRepository extends JpaRepository<Chuong, Integer>{
 	@Query(value="SELECT * FROM chuong WHERE chuong_id > :#{#chuong_id} and truyen_id = :#{#truyen_id} ORDER BY chuong_id LIMIT 1", nativeQuery = true)
 	Chuong nextChuong(@Param("chuong_id") int chuong_id , @Param("truyen_id") int truyen_id);
 	
-	@Query(value="SELECT * FROM chuong WHERE chuong_id < :#{#chuong_id} and truyen_id = :#{#truyen_id} ORDER BY chuong_id LIMIT 1", nativeQuery = true)
+	@Query(value="SELECT * FROM chuong WHERE chuong_id < :#{#chuong_id} and truyen_id = :#{#truyen_id} ORDER BY chuong_id DESC LIMIT 1", nativeQuery = true)
 	Chuong previousChuong(@Param("chuong_id") int chuong_id , @Param("truyen_id") int truyen_id);
 	
 	

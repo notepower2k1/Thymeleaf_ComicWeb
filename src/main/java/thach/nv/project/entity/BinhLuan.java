@@ -37,8 +37,8 @@ public class BinhLuan {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "truyen_id", insertable = true, updatable = true)
-	private Truyen truyen;
+	@JoinColumn(name = "baidang_id", insertable = true, updatable = true)
+	private BaiDang baidang;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_taikhoan", insertable = true, updatable = true)
@@ -60,13 +60,7 @@ public class BinhLuan {
 		this.binh_luan = binh_luan;
 	}
 
-	public Truyen getTruyen() {
-		return truyen;
-	}
-
-	public void setTruyen(Truyen truyen) {
-		this.truyen = truyen;
-	}
+	
 
 	public NguoiDung getAccount() {
 		return account;
@@ -80,20 +74,30 @@ public class BinhLuan {
 
 	
 
-	public BinhLuan() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public BinhLuan(int binhluan_id, String binh_luan, String thoi_gian, Truyen truyen, NguoiDung account,
+	public BinhLuan(int binhluan_id, String binh_luan, String thoi_gian, BaiDang baidang, NguoiDung account,
 			List<PhanHoi> dsPhanHoi) {
 		super();
 		this.binhluan_id = binhluan_id;
 		this.binh_luan = binh_luan;
 		this.thoi_gian = thoi_gian;
-		this.truyen = truyen;
+		this.baidang = baidang;
 		this.account = account;
 		this.dsPhanHoi = dsPhanHoi;
+	}
+
+	public BinhLuan() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
+
+	public BaiDang getBaidang() {
+		return baidang;
+	}
+
+	public void setBaidang(BaiDang baidang) {
+		this.baidang = baidang;
 	}
 
 	public List<PhanHoi> getDsPhanHoi() {

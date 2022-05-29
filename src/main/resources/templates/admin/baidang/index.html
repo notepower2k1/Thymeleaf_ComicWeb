@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin-layout}">
+<div layout:fragment="content">
+<!-- Page Heading -->
+
+	<a th:href="@{/admin/baidang/them-moi}"
+							    class="btn btn-primary">Thêm mới</a></th> 	
+	<div class="card shadow mt-4 mb-4">
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
+		        	<thead>
+		            	<tr>
+		            		<th>STT</th>
+		                	<th>Truyện</th>
+			     			<th>Ngày đăng</th>	    
+			     			<th>Tác vụ</th>
+			    			
+		            	</tr>
+		            </thead>
+		            <tfoot>
+		               	<tr>
+		               		<th>STT</th>
+		                	<th>Truyện</th>
+			     			<th>Ngày đăng</th>		    
+			     			<th>Tác vụ</th>
+		            	</tr>
+		            </tfoot>
+		            <tbody>
+		                <tr th:each="item,i:${baidangList}">
+		                	<td th:text="${i.count}"></td>
+						   	<td th:text="${item.truyen.truyen_ten}"></td>
+						    <td th:text="${item.ngay_dang}"></td>				  
+				     		<td class="action-area">			  
+				     			<a th:href="@{/admin/baidang/chi-tiet/{id_baidang}(id_baidang=${item.baidang_id})}" 
+							    class="btn btn-primary"><i class="fas fa-fw fa-info-circle"></i></a>
+							 
+								<a class="btn btn-primary deletebtn" th:data-id="${item.baidang_id}" 
+								th:data-type="baidang"><i class="fas fa-fw fa-trash"></i></a>
+							</td>
+						</tr>
+		            </tbody>
+				</table>
+	        </div>
+   		</div>
+   	
+	</div>
+		<div class="form-action">
+		<a th:href="@{/admin/truyen}">Quay lại</a>
+	</div>
+</div>
+</html>

@@ -71,11 +71,7 @@ public class TruyenServiceImpl implements TruyenService{
 		return this.truyenRepo.SearchTruyenName(truyen_ten);
 	}
 
-	@Override
-	public Truyen SelectNewTruyen(int user_id) {
-		// TODO Auto-generated method stub
-		return this.truyenRepo.SelectNewTruyen(user_id);
-	}
+	
 
 	@Override
 	public int TotalTruyen(int user_id) {
@@ -84,17 +80,14 @@ public class TruyenServiceImpl implements TruyenService{
 	}
 
 	@Override
-	public int TotalChuongOnThang(int user_id, int month) {
+	public List<Truyen> SearchTruyenNotPost(int user_id) {
 		// TODO Auto-generated method stub
-		return this.truyenRepo.TotalChuongOnThang(user_id, month);
+		return this.truyenRepo.SearchTruyenNotPost(user_id);
 	}
 
-	@Override
-	public int TotalBinhLuanOnThang(int user_id,int month) {
-		// TODO Auto-generated method stub
-		return this.truyenRepo.TotalBinhLuanOnThang(user_id,month);
-	}
+	
 
+	
 	
 
 	

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      	layout:decorate="~{layouts/admin-layout}">   	
+<div layout:fragment="content">
+	<h1 class="h3 mb-2 text-gray-800">Thêm bài đăng</h1>
+	<div class="card shadow mb-4">
+		<div class="card-body">
+			<form id="uploadFiles" th:action="@{/admin/baidang/save-baidang}" th:object="${baidang}" method="POST">
+		 		
+		 		<input type="hidden" th:field = "*{baidang_id}"/>
+		 		
+		 		<label>Truyện<sup>*</sup></label>
+		 		<select th:field = "*{truyen}" required class="form-control mb-4 col-6">
+		 			<option th:each="item:${listTruyen}" th:value="${item.truyen_id}" th:text="${item.truyen_ten}"></option>
+		 		</select>
+		 		
+		 		<label>Ngày đăng<sup>*</sup></label>
+		 		<input type="text" th:field = "*{ngay_dang}" disabled
+		 		class="form-control mb-4 col-6">
+		 					 		
+		 		
+	 	
+		 		
+		 		<button type="submit" class="btn btn-info">Thêm mới</button>
+		 	</form>
+   		</div>
+	</div>
+	<div class="form-action">
+		<a th:href="@{/admin/baidang}">Quay lại</a>
+	</div>
+</div>
+</html>

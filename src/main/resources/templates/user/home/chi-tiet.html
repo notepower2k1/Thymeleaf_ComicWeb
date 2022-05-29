@@ -105,7 +105,7 @@
  		<h3>Danh sách chương</h3>
  		<ul class="list-group list-group-flush">
 			  <li class="list-group-item" th:each="item:${chuongList}">
-			  	<a th:href="@{/home/truyen/chuong/{id_chuong}(id_chuong = ${item.chuong_id})}" th:inline="text">
+			  	<a th:href="@{/home/baidang/truyen/chuong/{id_chuong}(id_chuong = ${item.chuong_id})}" th:inline="text">
 			  	[[${item.chuong_so}]]<span th:if="${item.chuong_ten!=''}" th:inline="text">: [[${item.chuong_ten}]]</span>
 			  	</a>
 			  </li>
@@ -121,8 +121,8 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header py-3 border-0" style="background-color: #f8f9fa;" th:if="${currentUser!=null}">
-        	<form th:action="@{/truyen/save-comment}" th:object="${binhluan}" method="POST">   
-            <input type="hidden" id="truyenID" name="truyenID" th:value="${truyen.truyen_id}"/>
+        	<form th:action="@{/baidang/save-comment}" th:object="${binhluan}" method="POST">   
+            <input type="hidden" id="baidang_id" name="baidang_id" th:value="${truyen.baidang.baidang_id}"/>
            	<input type="hidden" id="isChuong" name="isChuong" th:value="0"/>
            	<input type="hidden" id="chuong_id" name="chuong_id" th:value="1"/>
             <div class="d-flex flex-start w-100">
@@ -180,7 +180,7 @@
               </a>
              
              <span th:if="${currentUser!=null}">
-              <a th:if="${item.account.id_taikhoan == currentUser.id_taikhoan}" th:href="@{/truyen/{truyen_id}/binhluan/xoa-binhluan/{binhluan_id}(truyen_id = ${truyen.truyen_id} ,binhluan_id =${item.binhluan_id})}"
+              <a th:if="${item.account.id_taikhoan == currentUser.id_taikhoan}" th:href="@{/baidang/{baidang_id}/binhluan/xoa-binhluan/{binhluan_id}(baidang_id = ${truyen.baidang.baidang_id} , binhluan_id =${item.binhluan_id})}"
                class="d-flex align-items-center me-3">
                 <i class="far fa-comment-dots mr-1"></i>
                 <p class="mb-0"> Xóa</p>
@@ -213,7 +213,7 @@
                	   <p th:text="${item1.phan_hoi}"></p>
                		<span class="small" th:if="${currentUser!=null}">          
 
-              <a th:if="${item1.account.id_taikhoan == currentUser.id_taikhoan}" th:href="@{/truyen/{truyen_id}/phanhoi/xoa-phanhoi/{phanhoi_id}(truyen_id = ${truyen.truyen_id} ,phanhoi_id =${item1.phanhoi_id})}"
+              <a th:if="${item1.account.id_taikhoan == currentUser.id_taikhoan}" th:href="@{/baidang/{baidang_id}/phanhoi/xoa-phanhoi/{phanhoi_id}(baidang_id = ${truyen.baidang.baidang_id} ,phanhoi_id =${item1.phanhoi_id})}"
                class="d-flex align-items-center me-3">
                 <i class="far fa-comment-dots mr-1"></i>
                 <p class="mb-0"> Xóa</p>
@@ -225,9 +225,9 @@
          	 </div>
           
             <div class="py-3 border-0 replyForm" style="background-color: #f8f9fa;display:none" th:if="${currentUser!=null}">
-        	<form th:action="@{/truyen/save-reply}" th:object="${phanhoi}" method="POST">        
+        	<form th:action="@{/baidang/save-reply}" th:object="${phanhoi}" method="POST">        
             <div class="d-flex flex-start w-100">
-              <input type="hidden" id="truyenID" name="truyenID" th:value="${truyen.truyen_id}"/>
+              <input type="hidden" id="baidang_id" name="baidang_id" th:value="${truyen.baidang.baidang_id}"/>
                <input type="hidden" id="binhluanID" name="binhluanID" th:value="${item.binhluan_id}"/>
             	<input type="hidden" id="isChuong" name="isChuong" th:value="0"/>
            		<input type="hidden" id="chuong_id" name="chuong_id" th:value="1"/>

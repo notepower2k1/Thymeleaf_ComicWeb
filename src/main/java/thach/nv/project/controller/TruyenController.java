@@ -50,7 +50,7 @@ public class TruyenController {
 	
 	@Autowired
 	private TheLoaiService theloaiService;
-	@GetMapping( value = {"/admin/truyen","/admin"} )
+	@GetMapping( value = {"/admin/truyen"} )
 	public String truyenListPage(Model model) {
 		NguoiDung account = null;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -80,17 +80,13 @@ public class TruyenController {
 	public String createTruyen(Model model) {
 		Truyen truyen = new Truyen();
 		
-		SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-
 		
 
 
  	    String newId = Helper.getNewID(this.truyenService.getMaxId(), 2, 2, "T");
  	    
  	    truyen.setTruyen_ma(newId);
- 	    truyen.setTruyen_ngaydang(sdf3.format(timestamp));
  	    
  	    truyen.setTruyen_tinhtrang(0);
 	    model.addAttribute("listTheLoai",theloaiService.getAllTheLoai());

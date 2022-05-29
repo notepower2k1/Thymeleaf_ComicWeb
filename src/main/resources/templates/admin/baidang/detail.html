@@ -1,110 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/admin-layout}">
-
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      	layout:decorate="~{layouts/admin-layout}">  
 <div layout:fragment="content">
-	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    	<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-    	</div>
-		<div class="row">
-
-        <div class="col-xl-4 col-md-6 mb-4">
-        	<div class="card border-left-primary shadow h-100 py-2">
-            	<div class="card-body">
-                	<div class="row no-gutters align-items-center">
-                    	<div class="col mr-2">
-                        	<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Tổng truyện đã đăng</div>
-                   		<div class="h5 mb-0 font-weight-bold text-gray-800" th:inline="text">
-                   			[[${totalTruyen}]]
-                   		</div>
-                    	</div>
-                   		<div class="col-auto">
-                        	<i class="fas fa-book fa-2x text-gray-300"></i>
-                    	</div>
-                	</div>
-            	</div>
-         	</div>
-         </div>
-
-		<div class="col-xl-4 col-md-6 mb-4">
-        	<div class="card border-left-success shadow h-100 py-2">
-            	<div class="card-body">
-                	<div class="row no-gutters align-items-center">
-                    	<div class="col mr-2">
-                        	<div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            	Tổng bài/tháng </div>
-                        	<div class="h5 mb-0 font-weight-bold text-gray-800"th:inline="text">
-                            	 [[${totalBaiDang}]]
-                        	</div>
-                        </div>
-                        <div class="col-auto">
-                        	<i class="fas fa-book-open fa-2x text-gray-300"></i>
-                        </div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-  		<div class="col-xl-4 col-md-6 mb-4">
-			<div class="card border-left-info shadow h-100 py-2">
- 				<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-                        	<div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                        		Tổng tương tác 
-                            </div>
-							<div class="row no-gutters align-items-center">
-                            	<div class="col-auto">
-                                	<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" th:inline="text">
-                                		 [[${totalTT}]]
-                                	</div>
-                                </div>
-                               
-							</div>
-						</div>
-                        <div class="col-auto">
-                        	<i class="fas fa-comments fa-2x text-gray-300"></i>
-                        </div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	
-		</div>
-
-	<div class="row">
-		<div class="col-xl-4 col-lg-6" th:if="${newBaiDang!=null}">
+	<h1 class="h3 mb-2 text-gray-800">Chi tiết</h1>
+	<div class="card shadow mb-4">
+		<div class="card-body">
+		<h3 th:inline="text">Ngày đăng: [[${baidang.ngay_dang}]]</h3>
+			<div class="row">
+			
+		<div class="col-xl-4 col-lg-6">
         	<div class="card shadow mb-4">
             	<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                	<h6 class="m-0 font-weight-bold text-primary" th:inline="text">Bài đăng mới nhất</h6>
+                	<h6 class="m-0 font-weight-bold text-primary" th:inline="text">Truyện</h6>
             	</div>
                 <div class="card-body">
                 	 <div class="item">
                 	   <h6 class="item-title" th:inline="text">Tên truyện:
-                                             [[${newBaiDang.truyen.truyen_ten}]]
+                                             [[${baidang.truyen.truyen_ten}]]
                         </h6>
                 	  <h6 th:inline="text">
-                       Thể loại: [[${newBaiDang.truyen.loai.theloai_ten}]]
+                       Thể loại: [[${baidang.truyen.loai.theloai_ten}]]
                             
                        </h6>
                        <h6 th:inline="text">
-                       Tác giả: [[${newBaiDang.truyen.truyen_tacgia}]]
+                       Tác giả: [[${baidang.truyen.truyen_tacgia}]]
                             
                        </h6>
-                         <h6 th:inline="text">
-                       Số lượt bình luận:[[${totalBL_BD}]]
-                            
+                       
+                       <h6 th:inline="text" th:if="${#lists.isEmpty(dsBL)}">
+                       Số lượt bình luận: 0                         
                        </h6>
-                       <h6 th:inline="text">
+                       <h6 th:inline="text" th:unless="${#lists.isEmpty(dsBL)}">
+                       Số lượt bình luận:	[[${#lists.size(dsBL)}]]                            
+                       </h6>
+                       
+                       <h6 th:inline="text" th:if="${totalPH_BD > 0}">
                        Số lượt phản hồi:[[${totalPH_BD}]]
                             
                        </h6>
-                     
+                      <h6 th:inline="text" th:unless="${totalPH_BD > 0}">
+                       Số lượt phản hồi: 0 
+                            
+                       </h6>
                        
                                 <div class="image-container">                                 
-                                        <img class="img-fluid" th:src="@{/admin/img/} + ${newBaiDang.truyen.truyen_anh}" alt="Product" style="width:400px;height:400px;">                                                        
+                                        <img class="img-fluid" th:src="@{/admin/img/} + ${baidang.truyen.truyen_anh}" alt="Product" style="width:400px;height:400px;">                                                        
                                 </div>
                                 
                                            
@@ -123,9 +64,9 @@
         	<div class="card shadow mb-4">
             	<div class="card-header py-3 d-flex flex-row 
                     align-items-center justify-content-between">
-                	<h6 class="m-0 font-weight-bold text-primary">Bình luận / Phản hồi</h6>
+                	<h6 class="m-0 font-weight-bold text-primary">Bình luận</h6>
                 </div>
-                <div class="card-body">
+              <div class="card-body">
                		<ul class="list-group list-group-flush" th:if="${#lists.isEmpty(dsBL)}">
 							<p>Bạn không có bình luận nào</p>						 
 					</ul>
@@ -194,13 +135,10 @@
         	</div>
     	</div>
 	</div>
-	
-	
+		</div>
+	</div>
+	<div class="form-action">
+		<a th:href="@{/admin/baidang}">Quay lại</a>
+	</div>
 </div>
-
-
-
-<script>
-
-</script>
 </html>

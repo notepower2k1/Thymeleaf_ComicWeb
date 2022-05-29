@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import thach.nv.project.entity.BaiDang;
 import thach.nv.project.entity.BinhLuan;
 import thach.nv.project.repository.BinhLuanRepository;
 import thach.nv.project.service.BinhLuanService;
@@ -45,9 +46,39 @@ public class BinhLuanServiceImpl implements BinhLuanService {
 	}
 
 	@Override
-	public List<BinhLuan> SelectAllBinhLuanOnTruyen(int id_truyen) {
+	public List<BinhLuan> SelectAllBinhLuanOnBaiDang(int baidang_id) {
 		// TODO Auto-generated method stub
-		return this.binhluanRepo.SelectAllBinhLuanOnTruyen(id_truyen);
+		return this.binhluanRepo.SelectAllBinhLuanOnBaiDang(baidang_id);
+	}
+
+	@Override
+	public int TotalBinhLuan(int user_id) {
+		// TODO Auto-generated method stub
+		return this.binhluanRepo.TotalBinhLuan(user_id);
+	}
+
+	@Override
+	public int TotalPhanHoi(int user_id) {
+		// TODO Auto-generated method stub
+		return this.binhluanRepo.TotalPhanHoi(user_id);
+	}
+
+	@Override
+	public int TotalBL_BD(int baidang_id) {
+		// TODO Auto-generated method stub
+		return this.binhluanRepo.TotalBL_BD(baidang_id);
+	}
+
+	@Override
+	public int TotalPH_BD(int binhluan_id) {
+		// TODO Auto-generated method stub
+		return this.binhluanRepo.TotalPH_BD(binhluan_id);
+	}
+
+	@Override
+	public List<BinhLuan> findByBaidang(BaiDang baidang) {
+		// TODO Auto-generated method stub
+		return this.binhluanRepo.findByBaidang(baidang);
 	}
 
 }

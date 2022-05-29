@@ -16,7 +16,6 @@
 			     			<th>Tên truyện</th>
 				     		<th>Thể loại</th>
 			     			<th>Tác giả</th>
-			     			<th>Ngày đăng</th>
 			     			<th>Số chương</th>
 		     				<th>Tác vụ</th>
 		     				<th>Danh sách chương</th>
@@ -28,7 +27,6 @@
 			     			<th>Tên truyện</th>
 				     		<th>Thể loại</th>
 			     			<th>Tác giả</th>
-			     			<th>Ngày đăng</th>
 			     			<th>Số chương</th>				     				     			
 		     				<th>Tác vụ</th>
 		     				<th>Danh sách chương</th>
@@ -40,7 +38,6 @@
 						    <td th:text="${item.truyen_ten}"></td>
 						    <td th:text="${item.loai.theloai_ten}"></td>
 						    <td th:text="${item.truyen_tacgia}"></td>
-						    <td th:text="${item.truyen_ngaydang}"></td>
 						    <td th:text="${#lists.size(item.dsChuong)}"></td>
 				     		<td class="action-area">
 				     			<a th:href="@{/admin/truyen/chi-tiet/{id_truyen}(id_truyen=${item.truyen_id})}" 

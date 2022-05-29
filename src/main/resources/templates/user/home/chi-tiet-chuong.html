@@ -36,7 +36,7 @@
                 <a class="blog-post-author-name" href="#" th:text="${chuong.truyen.userID.taikhoan}"></a>
                 <span class="blog-post-info-separator">/</span>
                 <span class="blog-post-published-date">
-                 	<span th:text="${chuong.truyen.truyen_ngaydang}"></span>
+                 	<span th:text="${chuong.truyen.baidang.ngay_dang}"></span>
                 </span>
                 
                 
@@ -50,7 +50,7 @@
                                 <div class="v-wrapper">
                                     <ul class="v-list animated fadeIn">
                                         <li class="js-backdrop" th:each="item:${chuongList}">
-                                            <a th:href="@{/home/truyen/chuong/{id_chuong}(id_chuong = ${item.chuong_id})}" th:inline="text">
+                                            <a th:href="@{/home/baidang/truyen/chuong/{id_chuong}(id_chuong = ${item.chuong_id})}" th:inline="text">
 			  								[[${item.chuong_so}]]<span th:if="${item.chuong_ten!=''}" th:inline="text">: [[${item.chuong_ten}]]</span>
                                             </a>
                                       </ul>
@@ -63,9 +63,9 @@
                 <div class="row align-items-center">
                  
                 <div class="previous-container col-5">
-                  <form th:action="@{/home/truyen/chuong/{id_chuong}(id_chuong = ${chuong.chuong_id})}" method="post">
+                  <form th:action="@{/home/baidang/truyen/chuong/{id_chuong}(id_chuong = ${chuong.chuong_id})}" method="post">
                 
-                     <button th:if="${chuong.chuong_id == minChuong}" class="button btn-primary" type="submit" disabled>
+                     <button th:if="${chuong.chuong_id == minChuong}" class="button" type="submit" disabled>
                         <i class="fas fa-angle-left u-s-m-r-9"></i> Previous
                     </button>
                      <button th:unless="${chuong.chuong_id == minChuong}" class="button btn-primary" type="submit">
@@ -75,13 +75,13 @@
                         </form>
                 </div>
                    
-           		<a th:href="@{/home/truyen/{id_truyen}(id_truyen = ${chuong.truyen.truyen_id})}" class="button btn-primary col-2 text-white text-center">
+           		<a th:href="@{/home/baidang/{baidang_id}(baidang_id = ${chuong.truyen.baidang.baidang_id})}" class="button btn-primary col-2 text-white text-center">
            			<i class="fas fa-home"> Home</i>
            		</a>
                   
                 <div class="next-container col-5">
-                    <form th:action="@{/home/truyen/chuong/{id_chuong}(id_chuong = ${chuong.chuong_id})}" method="post">
-                   <button th:if="${chuong.chuong_id == maxChuong}" class="button btn-primary" type="submit" disabled> Next
+                    <form th:action="@{/home/baidang/truyen/chuong/{id_chuong}(id_chuong = ${chuong.chuong_id})}" method="post">
+                   <button th:if="${chuong.chuong_id == maxChuong}" class="button" type="submit" disabled> Next
                         <i class="fas fa-angle-right u-s-m-l-9"></i>
                     </button>
                      <button th:unless="${chuong.chuong_id == maxChuong}" class="button btn-primary" type="submit"> Next
@@ -100,9 +100,9 @@
                 <div class="row align-items-center">
                  
                 <div class="previous-container col-5">
-                  <form th:action="@{/home/truyen/chuong/{id_chuong}(id_chuong = ${chuong.chuong_id})}" method="post">
+                  <form th:action="@{/home/baidang/truyen/chuong/{id_chuong}(id_chuong = ${chuong.chuong_id})}" method="post">
                 
-                     <button th:if="${chuong.chuong_id == minChuong}" class="button btn-primary" type="submit" disabled>
+                     <button th:if="${chuong.chuong_id == minChuong}" class="button" type="submit" disabled>
                         <i class="fas fa-angle-left u-s-m-r-9"></i> Previous
                     </button>
                      <button th:unless="${chuong.chuong_id == minChuong}" class="button btn-primary" type="submit">
@@ -112,12 +112,12 @@
                         </form>
                 </div>
                    
-				<a th:href="@{/home/truyen/{id_truyen}(id_truyen = ${chuong.truyen.truyen_id})}" class="button btn-primary col-2 text-white text-center">
+				<a th:href="@{/home/baidang/{baidang_id}(baidang_id = ${chuong.truyen.baidang.baidang_id})}"  class="button btn-primary col-2 text-white text-center">
            			<i class="fas fa-home"> Home</i>
            		</a>                  
                 <div class="next-container col-5">
-                    <form th:action="@{/home/truyen/chuong/{id_chuong}(id_chuong = ${chuong.chuong_id})}" method="post">
-                   <button th:if="${chuong.chuong_id == maxChuong}" class="button btn-primary" type="submit" disabled> Next
+                    <form th:action="@{/home/baidang/truyen/chuong/{id_chuong}(id_chuong = ${chuong.chuong_id})}" method="post">
+                   <button th:if="${chuong.chuong_id == maxChuong}" class="button" type="submit" disabled> Next
                         <i class="fas fa-angle-right u-s-m-l-9"></i>
                     </button>
                      <button th:unless="${chuong.chuong_id == maxChuong}" class="button btn-primary" type="submit"> Next
@@ -143,8 +143,8 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header py-3 border-0" style="background-color: #f8f9fa;" th:if="${currentUser!=null}">
-        	<form th:action="@{/truyen/save-comment}" th:object="${binhluan}" method="POST">   
-            <input type="hidden" id="truyenID" name="truyenID" th:value="${chuong.truyen.truyen_id}"/>
+        	<form th:action="@{/baidang/save-comment}" th:object="${binhluan}" method="POST">   
+            <input type="hidden" id="baidang_id" name="baidang_id" th:value="${chuong.truyen.baidang.baidang_id}"/>
             <input type="hidden" id="isChuong" name="isChuong" th:value="1"/>
            	<input type="hidden" id="chuong_id" name="chuong_id" th:value="${chuong.chuong_id}"/>
           
@@ -202,7 +202,7 @@
                 <p class="mb-0"> Phản hồi</p>
               </a>
                <span th:if="${currentUser!=null}">          
-              <a th:if="${item.account.id_taikhoan == currentUser.id_taikhoan}" th:href="@{/truyen/{truyen_id}/binhluan/xoa-binhluan/{binhluan_id}(truyen_id = ${chuong.truyen.truyen_id} ,binhluan_id =${item.binhluan_id})}"
+              <a th:if="${item.account.id_taikhoan == currentUser.id_taikhoan}" th:href="@{/baidang/truyen/chuong/{chuong_id}/binhluan/xoa-binhluan/{binhluan_id}(chuong_id= ${chuong.chuong_id} ,binhluan_id =${item.binhluan_id})}"
                class="d-flex align-items-center me-3">
                 <i class="far fa-comment-dots mr-1"></i>
                 <p class="mb-0"> Xóa</p>
@@ -235,7 +235,7 @@
                	
            	<span class="small" th:if="${currentUser!=null}">          
 
-              <a th:if="${item1.account.id_taikhoan == currentUser.id_taikhoan}" th:href="@{/truyen/chuong/{chuong_id}/phanhoi/xoa-phanhoi/{phanhoi_id}(chuong_id = ${chuong.chuong_id} ,phanhoi_id =${item1.phanhoi_id})}"
+              <a th:if="${item1.account.id_taikhoan == currentUser.id_taikhoan}" th:href="@{/baidang/truyen/chuong/{chuong_id}/phanhoi/xoa-phanhoi/{phanhoi_id}(chuong_id = ${chuong.chuong_id} ,phanhoi_id =${item1.phanhoi_id})}"
                class="d-flex align-items-center me-3">
                 <i class="far fa-comment-dots mr-1"></i>
                 <p class="mb-0"> Xóa</p>
@@ -247,9 +247,9 @@
          	 </div>
           
             <div class="py-3 border-0 replyForm" style="background-color: #f8f9fa;display:none" th:if="${currentUser!=null}">
-        	<form th:action="@{/truyen/save-reply}" th:object="${phanhoi}" method="POST">        
+        	<form th:action="@{/baidang/save-reply}" th:object="${phanhoi}" method="POST">        
             <div class="d-flex flex-start w-100">
-              <input type="hidden" id="truyenID" name="truyenID" th:value="${chuong.truyen.truyen_id}"/>
+              <input type="hidden" id="baidang_id" name="baidang_id" th:value="${chuong.truyen.baidang.baidang_id}"/>
                <input type="hidden" id="binhluanID" name="binhluanID" th:value="${item.binhluan_id}"/>
              <input type="hidden" id="isChuong" name="isChuong" th:value="1"/>
            	<input type="hidden" id="chuong_id" name="chuong_id" th:value="${chuong.chuong_id}"/>

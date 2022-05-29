@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -33,10 +34,9 @@ public class Truyen {
 	private String truyen_tacgia;
 	@Column(name = "truyen_mota", nullable = false)
 	private String truyen_mota;
-	@Column(name = "truyen_ngaydang", nullable = false)
-	private String truyen_ngaydang;	
 	@Column(name = "truyen_tinhtrang", nullable = false)
 	private int truyen_tinhtrang;
+	
 	
 	public int getTruyen_tinhtrang() {
 		return truyen_tinhtrang;
@@ -56,6 +56,8 @@ public class Truyen {
 	@OneToMany(mappedBy = "truyen")
     private List<Chuong> dsChuong = new ArrayList<>();
 
+	@OneToOne(mappedBy = "truyen")
+    private BaiDang baidang;
 	
 	@ManyToOne
 	@JoinColumn(name = "theloai_id", insertable = true, updatable = true)
@@ -64,6 +66,14 @@ public class Truyen {
 	
 	public TheLoai getLoai() {
 		return loai;
+	}
+
+	public BaiDang getBaidang() {
+		return baidang;
+	}
+
+	public void setBaidang(BaiDang baidang) {
+		this.baidang = baidang;
 	}
 
 	public void setLoai(TheLoai loai) {
@@ -79,20 +89,18 @@ public class Truyen {
 
 
 
+	
 	public Truyen(int truyen_id, String truyen_ma, String truyen_ten, String truyen_tacgia, String truyen_mota,
-			String truyen_ngaydang, int truyen_tinhtrang, String truyen_anh, NguoiDung userID, List<Chuong> dsChuong,
-			TheLoai loai) {
+			int truyen_tinhtrang, String truyen_anh, NguoiDung userID, TheLoai loai) {
 		super();
 		this.truyen_id = truyen_id;
 		this.truyen_ma = truyen_ma;
 		this.truyen_ten = truyen_ten;
 		this.truyen_tacgia = truyen_tacgia;
 		this.truyen_mota = truyen_mota;
-		this.truyen_ngaydang = truyen_ngaydang;
 		this.truyen_tinhtrang = truyen_tinhtrang;
 		this.truyen_anh = truyen_anh;
 		this.userID = userID;
-		this.dsChuong = dsChuong;
 		this.loai = loai;
 	}
 
@@ -138,13 +146,7 @@ public class Truyen {
 		this.truyen_mota = truyen_mota;
 	}
 
-	public String getTruyen_ngaydang() {
-		return truyen_ngaydang;
-	}
-
-	public void setTruyen_ngaydang(String truyen_ngaydang) {
-		this.truyen_ngaydang = truyen_ngaydang;
-	}
+	
 
 	public String getTruyen_anh() {
 		return truyen_anh;

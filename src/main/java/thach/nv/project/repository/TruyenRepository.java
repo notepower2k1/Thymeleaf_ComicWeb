@@ -28,18 +28,16 @@ public interface TruyenRepository extends JpaRepository<Truyen, Integer>{
 	List<Truyen> SearchTruyenName(@Param("truyen_ten") String truyen_ten);
 	
 	
-	@Query(value ="SELECT * FROM truyen WHERE truyen.truyen_ngaydang=(SELECT MAX(truyen_ngaydang) FROM truyen WHERE truyen.userID= :#{#user_id})",nativeQuery = true)
-	Truyen SelectNewTruyen(@Param("user_id") int user_id);
+	
 	
 	
 	@Query(value="SELECT COUNT(*) FROM truyen WHERE truyen.userID= :#{#user_id}",nativeQuery = true)
 	int TotalTruyen(@Param("user_id") int user_id);
 
-	@Query(value="SELECT COUNT(*) FROM chuong JOIN truyen on chuong.truyen_id = truyen.truyen_id WHERE truyen.userID = :#{#user_id} and MONTH(truyen.truyen_ngaydang) = :#{#month}",nativeQuery = true)
-	int TotalChuongOnThang(@Param("user_id") int user_id, @Param("month") int month);
+	
+	@Query(value="SELECT * FROM truyen WHERE truyen.truyen_id not in (SELECT truyen_id from baidang) and truyen.userID = :#{#user_id}", nativeQuery = true)
+	List<Truyen> SearchTruyenNotPost(@Param("user_id") int user_id);
 	
 	
-	@Query(value="SELECT COUNT(*) FROM binhluan JOIN truyen on binhluan.truyen_id = truyen.truyen_id WHERE truyen.userID = :#{#user_id} and MONTH(binhluan.thoi_gian) = :#{#month}",nativeQuery = true)
-	int TotalBinhLuanOnThang(@Param("user_id") int user_id,@Param("month") int month);
 	
 }
