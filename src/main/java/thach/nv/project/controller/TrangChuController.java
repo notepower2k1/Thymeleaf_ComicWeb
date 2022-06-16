@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +77,7 @@ public class TrangChuController {
 	@GetMapping( value ={"/home","/"})
 	String homePageView(Model model) {
 	    model.addAttribute("baidang", this.baidangService.getAllBaiDang());
+	    model.addAttribute("truyen", this.truyenService.getAllTruyen());
 	    model.addAttribute("listTheLoai",theloaiService.getAllTheLoai());
 		return "user/home/homepage";
 	}
@@ -345,10 +347,25 @@ public class TrangChuController {
 	    model.addAttribute("listTheLoai", categories);
 
 	    List<Truyen> dsTruyen = this.truyenService.SearchTruyenWithID(idloai);
-	    if (dsTruyen.size()!=0) {
-	    	model.addAttribute("truyen", dsTruyen);
-			return "user/home/search_page";
-	    }
+    	List<BaiDang> dsBD = new ArrayList<>();
+
+	    	
+	    	dsTruyen.forEach(item ->{
+	    		if (item.getBaidang() != null)
+		    	{
+		    		BaiDang temp = this.baidangService.getBaiDangById(item.getBaidang().getBaidang_id());
+		    		dsBD.add(temp);	    		
+		    	}	    		
+	    	});
+	    	
+	    	if (dsBD.size() > 0)
+	    	{
+	    		model.addAttribute("baidang", dsBD);
+				return "user/home/search_page";
+				
+	    	}
+	    	
+	    
 	    else {
 			return "user/home/comic-not-found";
 	    }
@@ -360,12 +377,27 @@ public class TrangChuController {
 	    model.addAttribute("listTheLoai", categories);
 
 	    List<Truyen> dsTruyen = this.truyenService.SearchTruyenName(tenNT);
-	    if (dsTruyen.size()!=0) {
-	    	model.addAttribute("truyen", dsTruyen);
+	    List<BaiDang> dsBD = new ArrayList<>();
+
+    	
+    	dsTruyen.forEach(item ->{
+    		if (item.getBaidang() != null)
+	    	{
+	    		BaiDang temp = this.baidangService.getBaiDangById(item.getBaidang().getBaidang_id());
+	    		dsBD.add(temp);	    		
+	    	}	    		
+    	});
+    	
+    	if (dsBD.size() > 0)
+    	{
+    		model.addAttribute("baidang", dsBD);
 			return "user/home/search_page";
-	    }
-	    else {
-			return "user/home/comic-not-found";
-	    }
+			
+    	}
+    	
+    
+    else {
+		return "user/home/comic-not-found";
+    }
 	}
 }

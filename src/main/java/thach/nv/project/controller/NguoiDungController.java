@@ -157,6 +157,6 @@ public class NguoiDungController {
 		this.nguoidungService.removeAccountById(id_taikhoan);
 		redirectAttrs.addFlashAttribute("alertType", "success");
 		redirectAttrs.addFlashAttribute("alertText", "Xóa thành công");
-	    return "redirect:/admin/nguoidung/index";
+	    return "redirect:/admin/nguoidung/";
 	}
 }

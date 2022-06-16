@@ -30,36 +30,36 @@
    					<div class="col-lg-9 col-md-9 col-sm-12">
                  
                     <div class="row product-container list-style">
-                        <div class="product-item col-lg-12 col-md-12 col-sm-12" th:each="item:${truyen}">
+                        <div class="product-item col-lg-4 col-md-6 col-sm-6" th:each="item:${baidang}">
                             <div class="item">
                                 <div class="image-container">
-                                    <a class="item-img-wrapper-link" th:href="@{/home/truyen/{id_truyen}(id_truyen = ${item.truyen_id})}">
-                                        <img class="img-fluid" th:src="@{/admin/img/} + ${item.truyen_anh}" alt="Product" style="width:600px;height:400px;">
+                                    <a class="item-img-wrapper-link" th:href="@{/home/baidang/{baidang_id}(baidang_id = ${item.baidang_id})}">
+                                        <img class="img-fluid img-thumbnail" th:src="@{/admin/img/} + ${item.truyen.truyen_anh}" alt="Product" style="width:400px;height:400px;">
                                     </a>                                
                                 </div>
                                 <div class="item-content">
                                     <div class="what-product-is">
                                         <ul class="bread-crumb">
                                             <li>
-                                                <a th:href="@{/the-loai/{idloai}(idloai = ${item.loai.theloai_id})}" th:text="${item.loai.theloai_ten}"></a>
+                                                <a th:href="@{/the-loai/{idloai}(idloai = ${item.truyen.loai.theloai_id})}" th:text="${item.truyen.loai.theloai_ten}"></a>
                                             </li>
                                            
                                             
                                         </ul>
                                         <h3 class="item-title">
-                                            <a th:href="@{/home/truyen/{id_truyen}(id_truyen = ${item.truyen_id})}" th:text="${item.truyen_ten}"></a>
+                                            <a th:href="@{/home/baidang/{baidang_id}(baidang_id = ${item.baidang_id})}" th:text="${item.truyen.truyen_ten}"></a>
                                         </h3> 
                                         </br>   
                                         
                                         	<div>
-                                       			<a href="#" th:inline="text">Tác giả: [[${item.truyen_tacgia}]]</a>                                      
+                                       			<a href="#" th:inline="text">Tác giả: [[${item.truyen.truyen_tacgia}]]</a>                                      
                                         	
                                         	</div>
                                          
                                         
                                            <div class="item-description wrap-text" th:inline="text">
 											  
-                                           [[${item.truyen_mota}]]
+                                           [[${item.truyen.truyen_mota}]]
                                             
                                         </div>                                                                   
                                     </div>                                 
